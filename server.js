@@ -19,8 +19,45 @@ const server = http.createServer((req, res) => {
 
         return;
       }
+
       res.setHeader('Content-Type', 'application/json');
       res.end(guestsJSON);
+    });
+  } else if (req.method === 'GET' && req.url === '/guests/0') {
+    fs.readFile(guestsPath, 'utf8', (err, guestsJSON) => {
+      if (err) {
+        console.error(err.stack);
+
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'text/plain');
+        res.end('Internal Service Error');
+
+        return;
+      }
+
+      const guests = JSON.parse(guestsJSON);
+      const guestJSON = JSON.stringify(guests[0]);
+
+      res.setHeader('Content-Type', 'application/json');
+      res.end(guestJSON);
+    });
+  } else if (req.method === 'GET' && req.url === '/guests/1') {
+    fs.readFile(guestsPath, 'utf8', (err, guestsJSON) => {
+      if (err) {
+        console.error(err.stack);
+
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'text/plain');
+        res.end('Internal Server error');
+
+        return;
+      }
+
+      const guests = JSON.parse(guestsJSON);
+      const guestJSON = JSON.stringify(guests[1]);
+
+      res.setHeader('Content-Type', 'application/json');
+      res.end(guestJSON);
     });
   } else {
     res.statusCode = 404;
