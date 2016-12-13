@@ -1,12 +1,15 @@
 {
   "name": "party",
   "version": "1.0.0",
-  "description": "",
+  "description": "An HTTP server for managing a party's guest list",
   "main": "guests.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Michael Friedman <contact@michaeldavidfriedman.com>",
+  "license": "MIT",
+  "engines": {
+  "node": "7.2.1"
+}
 }
