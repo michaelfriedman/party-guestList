@@ -8,9 +8,13 @@ const app = express();
 
 app.disable('x-powered-by');
 
-app.use((req, res) => {
+app.get('/guests', (req, res) => {
   const guests = ['Mary', 'Don'];
   res.send(guests);
+});
+
+app.use((req, res) => {
+  res.sendStatus(404);
 });
 
 const port = process.env.PORT || 8000;
