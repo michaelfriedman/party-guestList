@@ -24,6 +24,24 @@ app.get('/guests', (req, res) => {
   });
 });
 
+app.get('/guests/:id', (req, res) => {
+  fs.readFile(guestsPath, 'utf8', (err, guestsJSON) => {
+    if (err) {
+      console.error(err.stack);
+
+      return res.sendStatus(500);
+    }
+    const id = Number.parseInt(req.params.id);
+    const guests = JSON.parse(guestsJSON);
+
+    if (id < 0 || id >= guests.length || Number.isNaN(id)) {
+      return res.sendStatus(404);
+    }
+    res.set('Content-Type', 'text/plain');
+    res.send(guests[id]);
+  });
+});
+
 app.use((req, res) => {
   res.sendStatus(404);
 });
