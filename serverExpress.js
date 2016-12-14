@@ -13,6 +13,17 @@ const app = express();
 
 app.disable('x-powered-by');
 
+const morgan = require('morgan');
+
+app.use(morgan('short'));
+
+// app.use((req, res, next) => {
+//   const start = new Date();
+//   next();
+//   const end = new Date();
+//   console.log(req.method, req.url, res.statusCode, end - start, 'ms');
+// });
+
 app.get('/guests', (req, res) => {
   fs.readFile(guestsPath, 'utf8', (err, guestsJSON) => {
     if (err) {
