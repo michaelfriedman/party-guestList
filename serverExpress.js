@@ -108,6 +108,41 @@ app.get('/guests/:id', (req, res) => {
   });
 });
 
+//PATCH
+
+app.patch('/guests/:id', (req, res) => {
+  fs.readFile(guestsPath, 'utf8', (readErr, guestsJSON) => {
+    if (readErr) {
+      console.error(readErr.stack);
+      return res.sendStatus(500);
+    }
+
+    const id = Number.parseInt(req.params.id);
+    const guests = JSON.parse(guestsJSON);
+
+    if (id < 0 || id >= guests.length || Number.isNaN(id)) {
+      return res.sendStatus(404);
+    }
+    const guest = req.body.name;
+
+    if (!guest) {
+      return res.sendStatus(400);
+    }
+    guests[id] = guest;
+
+    const newGuestsJSON = JSON.stringify(guests);
+
+    fs.writeFile(guestsPath, newGuestsJSON, (writeErr) => {
+      if (writeErr) {
+        console.error(writeErr.stack);
+        return res.sendStatus(500);
+      }
+      res.set('Content-Type', 'text/plain');
+      res.send(guest);
+    });
+  });
+});
+
 app.use((req, res) => {
   res.sendStatus(404);
 });
