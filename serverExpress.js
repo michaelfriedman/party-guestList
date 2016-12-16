@@ -21,35 +21,6 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-// app.use((req, res, next) => {
-//   let bodyJSON = '';
-//
-//   req.on('data', (chunk) => {
-//     bodyJSON += chunk.toString();
-//   });
-//
-//   req.on('end', () => {
-//     let body;
-//
-//     if (bodyJSON !== '') {
-//       body = JSON.parse(bodyJSON);
-//     }
-//
-//     req.body = body;
-//
-//     next();
-//   });
-// });
-
-//   ^
-//   |
-// app.use((req, res, next) => {
-//   const start = new Date();
-//   next();
-//   const end = new Date();
-//   console.log(req.method, req.url, res.statusCode, end - start, 'ms');
-// });
-
 // Read all
 
 app.get('/guests', (req, res) => {
@@ -172,7 +143,7 @@ app.delete('/guests/:id', (req, res) => {
       }
       res.set('Content-Type', 'text/plain');
       res.send(guest);
-    }) ;
+    });
   });
 });
 
